@@ -1,9 +1,10 @@
 const express = require("express");
+require("dotenv").config();
 const cors = require("./middlewares/corsMiddleware");
 const dogsRoutes = require("./routes/dogsRoutes");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use Render's dynamic port if available
 
 // Middleware
 app.use(cors);
@@ -14,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("안녕하세요. ~ 서버 입니다.");
 });
-app.use("/dogs", dogsRoutes);
+app.use("/api/dogs", dogsRoutes); // Adjusted route for clarity
 
 // Start Server
 app.listen(PORT, () => {
